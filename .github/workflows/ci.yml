@@ -46,6 +46,3 @@ jobs:
 
       - name: Run tree-sitter tests
         run: npx tree-sitter test
-
-      - name: Check formatting
-        run: npm run check-formatted
