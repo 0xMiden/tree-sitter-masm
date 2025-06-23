@@ -1,0 +1,30 @@
+==================
+module and procedure documentation
+==================
+#! this is a module doc string
+#!
+#! with multiple lines
+
+#! this is a procedure docstring
+proc.foo
+    # Just a comment
+    push.1
+end
+---
+
+(source_file
+  (moduledoc
+    (doc_comment)
+    (doc_comment)
+    (doc_comment))
+  (form (doc_comment))
+  (form
+    (procedure
+        name: (identifier)
+        (newline)
+        (whitespace)
+        (comment)
+        (whitespace)
+        body: (block
+        (op (push values: (number (decimal)))))
+        (newline))))

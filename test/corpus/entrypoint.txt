@@ -1,0 +1,15 @@
+==================
+entrypoint
+==================
+begin
+    exec."foo::<T>"
+end
+---
+
+(source_file
+  (entrypoint
+    (newline)
+    (whitespace)
+    body: (block
+      (invoke path: (path (relative_path (quoted_ident)))))
+    (newline)))

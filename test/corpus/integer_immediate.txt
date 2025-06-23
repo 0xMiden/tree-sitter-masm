@@ -1,0 +1,16 @@
+==================
+integer immediate
+==================
+proc.foo
+    push.1
+end
+---
+
+(source_file
+  (procedure
+    name: (identifier)
+    (newline)
+    (whitespace)
+    body: (block
+      (op (push values: (number (decimal)))))
+    (newline)))

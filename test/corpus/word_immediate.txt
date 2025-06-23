@@ -1,0 +1,24 @@
+==================
+word immediate
+==================
+proc.foo
+    push.[1, 0x02, 3, 4]
+end
+---
+
+(source_file
+  (procedure
+    name: (identifier)
+    (newline)
+    (whitespace)
+    body: (block
+      (op (push values: (number (word
+        a: (integer (decimal))
+        (whitespace)
+        b: (integer (hex))
+        (whitespace)
+        c: (integer (decimal))
+        (whitespace)
+        d: (integer (decimal))
+      )))))
+    (newline)))

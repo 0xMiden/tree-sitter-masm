@@ -1,0 +1,16 @@
+==================
+hex immediate
+==================
+proc.foo
+    push.0x01
+end
+---
+
+(source_file
+  (procedure
+    name: (identifier)
+    (newline)
+    (whitespace)
+    body: (block
+      (op (push values: (number (hex)))))
+    (newline)))

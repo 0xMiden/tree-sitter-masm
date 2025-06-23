@@ -1,0 +1,29 @@
+==================
+import
+==================
+use.std::u64
+
+begin
+    exec.u64::wrapping_add
+end
+---
+
+(source_file
+  (import
+    path: (path
+      (relative_path
+        (identifier)
+        (identifier))))
+  (newline)
+  (newline)
+  (form
+    (entrypoint
+        (newline)
+        (whitespace)
+        body: (block
+        (invoke
+          path: (path
+            (relative_path
+              (identifier)
+              (identifier)))))
+        (newline))))

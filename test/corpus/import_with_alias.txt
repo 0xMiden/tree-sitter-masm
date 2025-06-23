@@ -1,0 +1,30 @@
+==================
+import with alias
+==================
+use.std::u64->bigint
+
+begin
+    exec.bigint::wrapping_add
+end
+---
+
+(source_file
+  (import
+    path: (path
+      (relative_path
+        (identifier)
+        (identifier)))
+    alias: (import_alias name: (identifier)))
+  (newline)
+  (newline)
+  (form
+    (entrypoint
+        (newline)
+        (whitespace)
+        body: (block
+        (invoke
+          path: (path
+            (relative_path
+              (identifier)
+              (identifier)))))
+        (newline))))

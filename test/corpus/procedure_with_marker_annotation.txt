@@ -1,0 +1,20 @@
+==================
+procedure with marker annotation
+==================
+@anno
+proc.foo.1
+    exec.bar
+end
+---
+
+(source_file
+  (procedure
+    annotations: (annotation  name: (identifier))
+    (newline)
+    name: (identifier)
+    num_locals: (decimal)
+    (newline)
+    (whitespace)
+    body: (block
+      (invoke path: (path (relative_path (identifier)))))
+    (newline)))
