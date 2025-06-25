@@ -7,11 +7,12 @@ end
 ---
 
 (source_file
-  (procedure
-    name: (identifier)
-    (newline)
-    (whitespace)
-    body: (block
-      (op (assert err: (string)))
-    )
-    (newline)))
+  (form
+    (procedure
+        name: (identifier)
+        (newline)
+        (whitespace)
+        body: (block
+          (assert err: (string (string_content)))
+        )
+        (newline))))

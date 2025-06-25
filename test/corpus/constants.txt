@@ -1,0 +1,53 @@
+==================
+constants
+==================
+const.STRING="foo bar baz"
+const.BASE_10=1
+const.BASE_16=0xFF
+const.EXPR=BASE_10 + BASE_16
+
+proc.foo
+    push.BASE_10.BASE_16
+end
+---
+
+(source_file
+  (form
+    (constant
+        name: (const_ident)
+        value: (const_expr
+          (const_term (string (string_content))))))
+  (newline)
+  (form
+    (constant
+        name: (const_ident)
+        value: (const_expr
+          (const_term (number (decimal))))))
+  (newline)
+  (form
+    (constant
+        name: (const_ident)
+        value: (const_expr
+          (const_term (number (hex))))))
+  (newline)
+  (form
+    (constant
+        name: (const_ident)
+        value: (const_expr
+          (const_binop
+            lhs: (const_expr
+              (const_term (const_ident)))
+            (whitespace)
+            (whitespace)
+            rhs: (const_expr
+              (const_term (const_ident)))))))
+  (newline)
+  (newline)
+  (form
+    (procedure
+        name: (identifier)
+        (newline)
+        (whitespace)
+        body: (block
+          (push (const_ident) (const_ident)))
+        (newline))))

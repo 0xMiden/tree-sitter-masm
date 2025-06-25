@@ -1,7 +1,6 @@
-[
-  (moduledoc)
-  (doc_comment)+
-] @comment.doc
+(moduledoc) @comment.doc
+
+(doc_comment) @comment.doc
 
 (comment)+ @comment
 
@@ -145,10 +144,7 @@
   "u32assert"
   "mtree_verify"
   "breakpoint"
-  "debug.stack"
-  "debug.mem"
-  "debug.local"
-  "debug.adv_stack"
+  "debug"
   "emit"
   "trace"
   "push"
@@ -159,26 +155,42 @@
   "nop"
 ] @keyword
 
-(import path: (path) @function.method)
+(import
+  path: (path [
+    (relative_path ([(identifier) (string)] "::")* [(identifier) (string)] @module)
+    (absolute_path ([(identifier) (string)] "::")* [(identifier) (string)] @module)
+  ])
+  !alias)
 
-(import_alias name: (identifier) @function.method)
+(import_alias name: (identifier) @module)
 
-(constant name: (const_ident) @constant)
+(const_ident) @constant
 
 (procedure name: (identifier) @function)
 
 (entrypoint) @function
 
-(annotation name: (identifier) @attribute)
+(annotation
+  "@" @attribute
+  name: (identifier) @attribute)
 
-(meta_key_value name: [(identifier) (string)] @string.special.symbol)
+(meta_key_value name: [(identifier) (string)] @property)
 
 (identifier) @function.method
 
-(invoke path: (path) @function.method)
+((identifier) @string.special.symbol
+  (#match? @string.special.symbol "[$](exec|kernel|sys|anon)"))
+
+(invoke
+  path: (path [
+    (relative_path ([(identifier) (string)] "::")* [(identifier) (string)] @function)
+    (absolute_path ([(identifier) (string)] "::")* [(identifier) (string)] @function)
+  ]))
 
 (assert
-  err: ("err" @string.special.symbol))
+  err: ("err" @keyword))
+
+(debug "." ["stack" "mem" "local" "adv_stack"] @keyword)
 
 [
   (number)
@@ -188,10 +200,6 @@
 ] @number
 
 (string) @string
-
-[
-  (quoted_ident)
-] @string.special.symbol
 
 [
   "+"

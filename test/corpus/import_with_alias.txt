@@ -9,12 +9,13 @@ end
 ---
 
 (source_file
-  (import
-    path: (path
-      (relative_path
-        (identifier)
-        (identifier)))
-    alias: (import_alias name: (identifier)))
+  (form
+    (import
+        path: (path
+        (relative_path
+            (identifier)
+            (identifier)))
+        alias: (import_alias name: (identifier))))
   (newline)
   (newline)
   (form

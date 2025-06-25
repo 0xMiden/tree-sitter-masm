@@ -112,6 +112,14 @@
       "required": true,
       "types": [
         {
+          "type": "assert",
+          "named": true
+        },
+        {
+          "type": "debug",
+          "named": true
+        },
+        {
           "type": "if",
           "named": true
         },
@@ -121,6 +129,26 @@
         },
         {
           "type": "op",
+          "named": true
+        },
+        {
+          "type": "op_with_immediate",
+          "named": true
+        },
+        {
+          "type": "op_with_local_index",
+          "named": true
+        },
+        {
+          "type": "op_with_optional_immediate",
+          "named": true
+        },
+        {
+          "type": "op_with_stack_index",
+          "named": true
+        },
+        {
+          "type": "push",
           "named": true
         },
         {
@@ -180,22 +208,6 @@
     }
   },
   {
-    "type": "const_group",
-    "named": true,
-    "fields": {
-      "expr": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "const_expr",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "const_term",
     "named": true,
     "fields": {},
@@ -204,7 +216,7 @@
       "required": true,
       "types": [
         {
-          "type": "const_group",
+          "type": "const_expr",
           "named": true
         },
         {
@@ -226,6 +238,16 @@
     "type": "constant",
     "named": true,
     "fields": {
+      "docs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "doc_comment",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -251,67 +273,35 @@
   {
     "type": "debug",
     "named": true,
-    "fields": {
-      "end": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "decimal",
-            "named": true
-          }
-        ]
-      },
-      "event": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          }
-        ]
-      },
-      "index": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "decimal",
-            "named": true
-          }
-        ]
-      },
-      "start": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "decimal",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "decimal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doc_comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "doc_comment_line",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -327,6 +317,16 @@
             "named": true
           }
         ]
+      },
+      "docs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "doc_comment",
+            "named": true
+          }
+        ]
       }
     }
   },
@@ -335,15 +335,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "constant",
-          "named": true
-        },
-        {
-          "type": "doc_comment",
           "named": true
         },
         {
@@ -524,6 +520,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "quoted_ident",
+            "named": true
           }
         ]
       },
@@ -548,7 +548,7 @@
       "required": true,
       "types": [
         {
-          "type": "doc_comment",
+          "type": "doc_comment_line",
           "named": true
         }
       ]
@@ -585,61 +585,31 @@
   {
     "type": "op",
     "named": true,
+    "fields": {}
+  },
+  {
+    "type": "op_with_immediate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "op_with_local_index",
+    "named": true,
     "fields": {
-      "addr": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          }
-        ]
-      },
-      "imm": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          }
-        ]
-      },
-      "index": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "decimal",
-            "named": true
-          }
-        ]
-      },
       "local": {
         "multiple": true,
         "required": false,
@@ -658,24 +628,54 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "assert",
-          "named": true
-        },
-        {
-          "type": "debug",
-          "named": true
-        },
-        {
-          "type": "push",
-          "named": true
-        }
-      ]
+    }
+  },
+  {
+    "type": "op_with_optional_immediate",
+    "named": true,
+    "fields": {
+      "imm": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          },
+          {
+            "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "integer",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "op_with_stack_index",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          },
+          {
+            "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "decimal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -717,6 +717,16 @@
         "types": [
           {
             "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "docs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "doc_comment",
             "named": true
           }
         ]
@@ -772,31 +782,36 @@
   {
     "type": "push",
     "named": true,
-    "fields": {
-      "values": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "quoted_ident",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_content",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "relative_path",
@@ -853,27 +868,11 @@
       "required": false,
       "types": [
         {
-          "type": "constant",
-          "named": true
-        },
-        {
-          "type": "entrypoint",
-          "named": true
-        },
-        {
           "type": "form",
           "named": true
         },
         {
-          "type": "import",
-          "named": true
-        },
-        {
           "type": "moduledoc",
-          "named": true
-        },
-        {
-          "type": "procedure",
           "named": true
         }
       ]
@@ -882,7 +881,17 @@
   {
     "type": "string",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_content",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "while",
@@ -903,63 +912,20 @@
   {
     "type": "word",
     "named": true,
-    "fields": {
-      "elem0": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          }
-        ]
-      },
-      "elem1": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          }
-        ]
-      },
-      "elem2": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          }
-        ]
-      },
-      "elem3": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1091,6 +1057,10 @@
     "named": false
   },
   {
+    "type": "adv_stack",
+    "named": false
+  },
+  {
     "type": "and",
     "named": false
   },
@@ -1164,19 +1134,7 @@
     "named": false
   },
   {
-    "type": "debug.adv_stack",
-    "named": false
-  },
-  {
-    "type": "debug.local",
-    "named": false
-  },
-  {
-    "type": "debug.mem",
-    "named": false
-  },
-  {
-    "type": "debug.stack",
+    "type": "debug",
     "named": false
   },
   {
@@ -1188,7 +1146,7 @@
     "named": false
   },
   {
-    "type": "doc_comment",
+    "type": "doc_comment_line",
     "named": true
   },
   {
@@ -1356,11 +1314,19 @@
     "named": false
   },
   {
+    "type": "local",
+    "named": false
+  },
+  {
     "type": "lt",
     "named": false
   },
   {
     "type": "lte",
+    "named": false
+  },
+  {
+    "type": "mem",
     "named": false
   },
   {
@@ -1466,6 +1432,14 @@
   {
     "type": "sdepth",
     "named": false
+  },
+  {
+    "type": "stack",
+    "named": false
+  },
+  {
+    "type": "string_content",
+    "named": true
   },
   {
     "type": "sub",

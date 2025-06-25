@@ -7,9 +7,10 @@ end
 ---
 
 (source_file
-  (entrypoint
-    (newline)
-    (whitespace)
-    body: (block
-      (invoke path: (path (relative_path (quoted_ident)))))
-    (newline)))
+  (form
+    (entrypoint
+        (newline)
+        (whitespace)
+        body: (block
+        (invoke path: (path (relative_path (quoted_ident (string_content))))))
+        (newline))))

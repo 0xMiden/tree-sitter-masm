@@ -8,16 +8,17 @@ end
 ---
 
 (source_file
-  (procedure
-    annotations: (annotation
-      name: (identifier)
-      value: (annotation_value (meta_expr (string)))
-    )
-    (newline)
-    name: (identifier)
-    num_locals: (decimal)
-    (newline)
-    (whitespace)
-    body: (block
-      (invoke path: (path (relative_path (identifier)))))
-    (newline)))
+  (form
+    (procedure
+        annotations: (annotation
+            name: (identifier)
+            value: (annotation_value (meta_expr (string (string_content))))
+        )
+        (newline)
+        name: (identifier)
+        num_locals: (decimal)
+        (newline)
+        (whitespace)
+        body: (block
+        (invoke path: (path (relative_path (identifier)))))
+        (newline))))

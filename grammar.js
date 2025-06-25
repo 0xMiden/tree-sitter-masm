@@ -153,10 +153,7 @@ module.exports = grammar({
       "u32assert",
       "mtree_verify",
       "breakpoint",
-      "debug.stack",
-      "debug.mem",
-      "debug.local",
-      "debug.adv_stack",
+      "debug",
       "emit",
       "trace",
       "push",
@@ -171,20 +168,14 @@ module.exports = grammar({
   word: ($) => $.identifier,
 
   rules: {
-    source_file: ($) => choice($._with_module_doc, $._without_module_doc),
+    source_file: ($) => seq(optional($.moduledoc), repeat($.form)),
 
-    _with_module_doc: ($) => seq($.moduledoc, repeat($.form)),
+    form: ($) => choice($.import, $.constant, $.procedure, $.entrypoint),
 
-    moduledoc: ($) => seq(prec(2, repeat1($.doc_comment)), token("\n")),
+    moduledoc: ($) => seq(prec(2, repeat1($.doc_comment_line)), token("\n")),
 
-    _without_module_doc: ($) => seq($._form_no_doc, repeat($.form)),
-
-    _form_no_doc: ($) => choice($.import, $.constant, $.procedure, $.entrypoint),
-
-    form: ($) =>
-      choice($.import, $.constant, $.procedure, $.entrypoint, prec(1, repeat1($.doc_comment))),
-
-    doc_comment: ($) => token.immediate(/#![\r\f\t\v ]*([^\n].*)?\n/),
+    doc_comment: ($) => prec(1, repeat1($.doc_comment_line)),
+    doc_comment_line: ($) => token.immediate(/#![\r\f\t\v ]*([^\n].*)?\n/),
 
     comment: ($) => /#[\r\f\t\v ]*([^\n].*)?\n/,
 
@@ -200,6 +191,7 @@ module.exports = grammar({
 
     constant: ($) =>
       seq(
+        field("docs", optional($.doc_comment)),
         "const",
         token.immediate("."),
         field("name", $.const_ident),
@@ -207,10 +199,12 @@ module.exports = grammar({
         field("value", $.const_expr),
       ),
 
-    entrypoint: ($) => seq("begin", field("body", $.block), "end"),
+    entrypoint: ($) =>
+      seq(field("docs", optional($.doc_comment)), "begin", field("body", $.block), "end"),
 
     procedure: ($) =>
       seq(
+        field("docs", optional($.doc_comment)),
         field("annotations", repeat($.annotation)),
         field("visibility", choice("export", "proc")),
         token.immediate("."),
@@ -220,17 +214,26 @@ module.exports = grammar({
         "end",
       ),
 
-    block: ($) => repeat1(choice($.op, $.if, $.while, $.repeat, $.invoke)),
+    block: ($) =>
+      repeat1(
+        choice(
+          $.assert,
+          $.debug,
+          $.push,
+          $.op_with_immediate,
+          $.op_with_optional_immediate,
+          $.op_with_stack_index,
+          $.op_with_local_index,
+          $.op,
+          $.if,
+          $.while,
+          $.repeat,
+          $.invoke,
+        ),
+      ),
 
     op: ($) =>
       choice(
-        $.debug,
-        $.assert,
-        $.push,
-        $._op_with_imm_integer,
-        $._op_with_stack_index,
-        $._op_with_local_index,
-        $._op_with_mem_address,
         "nop",
         "adv.insert_hdword",
         "adv.insert_hdword_d",
@@ -247,6 +250,7 @@ module.exports = grammar({
         "adv_loadw",
         "and",
         "arithmetic_circuit_eval",
+        "breakpoint",
         "caller",
         "cdrop",
         "cdropw",
@@ -301,7 +305,9 @@ module.exports = grammar({
         "xor",
       ),
 
-    _op_with_imm_integer: ($) =>
+    op_with_immediate: ($) => seq(choice("emit", "trace"), token.immediate("."), $._imm_integer),
+
+    op_with_optional_immediate: ($) =>
       seq(
         choice(
           "add",
@@ -315,6 +321,10 @@ module.exports = grammar({
           "gt",
           "lte",
           "lt",
+          "mem_load",
+          "mem_loadw",
+          "mem_store",
+          "mem_storew",
           "neq",
           "u32and",
           "u32div",
@@ -340,25 +350,19 @@ module.exports = grammar({
           "u32wrapping_mul",
           "u32wrapping_sub",
         ),
-        optional(field("imm", $._maybe_integer)),
+        field("imm", optional($._maybe_integer)),
       ),
 
-    _op_with_stack_index: ($) =>
+    op_with_stack_index: ($) =>
       seq(
         choice("adv_push", "dupw", "dup", "movdnw", "movdn", "movupw", "movup", "swapw", "swap"),
-        optional(field("index", $._maybe_decimal)),
+        field("index", optional($._maybe_decimal)),
       ),
 
-    _op_with_local_index: ($) =>
+    op_with_local_index: ($) =>
       seq(
         choice("locaddr", "loc_load", "loc_loadw", "loc_store", "loc_storew"),
-        optional(field("local", $._maybe_decimal)),
-      ),
-
-    _op_with_mem_address: ($) =>
-      seq(
-        choice("mem_load", "mem_loadw", "mem_store", "mem_storew"),
-        optional(field("addr", $._maybe_integer)),
+        field("local", optional($._maybe_decimal)),
       ),
 
     assert: ($) =>
@@ -373,44 +377,28 @@ module.exports = grammar({
           "u32assert",
           "mtree_verify",
         ),
-        optional(
-          field(
-            "err",
+        field(
+          "err",
+          optional(
             seq(token.immediate("."), token.immediate("err"), token.immediate("="), $._imm_string),
           ),
         ),
       ),
 
     debug: ($) =>
-      choice(
-        "breakpoint",
-        seq("debug.stack", optional(field("index", $._maybe_decimal))),
-        seq(
-          "debug.mem",
-          optional(
-            seq(
-              ".",
-              field("start", $._imm_decimal),
-              optional(seq(".", field("end", $._imm_decimal))),
-            ),
-          ),
+      seq(
+        "debug",
+        token.immediate("."),
+        choice(
+          token.immediate("stack"),
+          token.immediate("mem"),
+          token.immediate("local"),
+          token.immediate("adv_stack"),
         ),
-        seq(
-          "debug.local",
-          optional(
-            seq(
-              ".",
-              field("start", $._imm_decimal),
-              optional(seq(".", field("end", $._imm_decimal))),
-            ),
-          ),
-        ),
-        seq("debug.adv_stack", optional(field("index", $._maybe_decimal))),
-        seq("emit", token.immediate("."), field("event", $._imm_integer)),
-        seq("trace", token.immediate("."), field("event", $._imm_integer)),
+        repeat($._maybe_decimal),
       ),
 
-    push: ($) => seq("push", field("values", repeat1($._maybe_number))),
+    push: ($) => seq("push", repeat1($._maybe_number)),
 
     if: ($) =>
       seq(
@@ -444,7 +432,7 @@ module.exports = grammar({
 
     annotation_value: ($) => choice($.meta_key_value, $.meta_expr),
 
-    meta_key_value: ($) => seq(field("name", $.identifier), "=", field("value", $.meta_expr)),
+    meta_key_value: ($) => seq(field("name", $._ident), "=", field("value", $.meta_expr)),
     meta_expr: ($) => choice($.identifier, $.string, $.number),
 
     const_expr: ($) => choice($.const_binop, $.const_term),
@@ -458,9 +446,9 @@ module.exports = grammar({
         prec.left(1, seq(field("lhs", $.const_expr), "-", field("rhs", $.const_expr))),
       ),
 
-    const_term: ($) => choice($.const_group, $.number, $.string, $.const_ident),
+    const_term: ($) => choice($._parenthesized_const_expr, $.number, $.string, $.const_ident),
 
-    const_group: ($) => seq("(", field("expr", $.const_expr), ")"),
+    _parenthesized_const_expr: ($) => seq("(", $.const_expr, ")"),
 
     path: ($) => choice($.absolute_path, $.relative_path),
 
@@ -476,23 +464,13 @@ module.exports = grammar({
     identifier: ($) => /[a-z_$][a-zA-Z0-9_$]+/,
     const_ident: ($) => /[A-Z_][A-Z0-9_$]+/,
 
-    string: ($) => seq('"', token.immediate(/[^"]*/), token.immediate('"')),
+    string: ($) => seq('"', $.string_content, token.immediate('"')),
+    string_content: ($) => token.immediate(/[^"\n]*/),
     number: ($) => choice($.decimal, $.hex, $.word),
     integer: ($) => choice($.decimal, $.hex),
-    decimal: ($) => /[\d]+/,
-    hex: ($) => /0x[A-F0-9]+/,
-    word: ($) =>
-      seq(
-        "[",
-        field("elem0", $._imm_integer),
-        ",",
-        field("elem1", $._imm_integer),
-        ",",
-        field("elem2", $._imm_integer),
-        ",",
-        field("elem3", $._imm_integer),
-        "]",
-      ),
+    decimal: ($) => /(0|[1-9](_?[0-9])*)/,
+    hex: ($) => /0x[a-fA-F0-9]+(_[a-fA-F0-9]+)*/,
+    word: ($) => seq("[", seq($._imm_integer, repeat(seq(",", $._imm_integer))), "]"),
 
     _imm_number: ($) => choice($.number, $.const_ident),
     _imm_integer: ($) => choice($.integer, $.const_ident),

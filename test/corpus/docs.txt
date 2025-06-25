@@ -6,6 +6,8 @@ module and procedure documentation
 #! with multiple lines
 
 #! this is a procedure docstring
+#!
+#! with multiple lines
 proc.foo
     # Just a comment
     push.1
@@ -14,17 +16,20 @@ end
 
 (source_file
   (moduledoc
-    (doc_comment)
-    (doc_comment)
-    (doc_comment))
-  (form (doc_comment))
+    (doc_comment_line)
+    (doc_comment_line)
+    (doc_comment_line))
   (form
     (procedure
+        docs: (doc_comment
+            (doc_comment_line)
+            (doc_comment_line)
+            (doc_comment_line))
         name: (identifier)
         (newline)
         (whitespace)
         (comment)
         (whitespace)
         body: (block
-        (op (push values: (number (decimal)))))
+        (push (number (decimal))))
         (newline))))

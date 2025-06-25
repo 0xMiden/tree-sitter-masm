@@ -9,11 +9,12 @@ end
 ---
 
 (source_file
-  (import
-    path: (path
-      (absolute_path
-        (identifier)
-        (identifier))))
+  (form
+    (import
+        path: (path
+        (absolute_path
+            (identifier)
+            (identifier)))))
   (newline)
   (newline)
   (form

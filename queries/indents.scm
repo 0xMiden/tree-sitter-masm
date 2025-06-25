@@ -1,5 +1,4 @@
 (word "]" @end) @indent
-(const_group ")" @end) @indent
 
 (procedure "end" @end) @indent
 (entrypoint "end" @end) @indent

@@ -1,8 +1,8 @@
 ==================
-integer immediate
+assert without error
 ==================
 proc.foo
-    push.1
+    assert
 end
 ---
 
@@ -13,5 +13,6 @@ end
         (newline)
         (whitespace)
         body: (block
-        (push (number (decimal))))
+          (assert)
+        )
         (newline))))
