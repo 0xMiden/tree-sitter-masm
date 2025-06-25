@@ -406,8 +406,8 @@ module.exports = grammar({
           ),
         ),
         seq("debug.adv_stack", optional(field("index", $._maybe_decimal))),
-        seq("emit", token.immediate("."), field("id", $._imm_integer)),
-        seq("trace", token.immediate("."), field("id", $._imm_integer)),
+        seq("emit", token.immediate("."), field("event", $._imm_integer)),
+        seq("trace", token.immediate("."), field("event", $._imm_integer)),
       ),
 
     push: ($) => seq("push", field("values", repeat1($._maybe_number))),
@@ -484,13 +484,13 @@ module.exports = grammar({
     word: ($) =>
       seq(
         "[",
-        field("a", $._imm_integer),
+        field("elem0", $._imm_integer),
         ",",
-        field("b", $._imm_integer),
+        field("elem1", $._imm_integer),
         ",",
-        field("c", $._imm_integer),
+        field("elem2", $._imm_integer),
         ",",
-        field("d", $._imm_integer),
+        field("elem3", $._imm_integer),
         "]",
       ),
 

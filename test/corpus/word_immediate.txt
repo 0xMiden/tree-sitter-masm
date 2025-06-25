@@ -13,12 +13,12 @@ end
     (whitespace)
     body: (block
       (op (push values: (number (word
-        a: (integer (decimal))
+        elem0: (integer (decimal))
         (whitespace)
-        b: (integer (hex))
+        elem1: (integer (hex))
         (whitespace)
-        c: (integer (decimal))
+        elem2: (integer (decimal))
         (whitespace)
-        d: (integer (decimal))
+        elem3: (integer (decimal))
       )))))
     (newline)))

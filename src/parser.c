@@ -1690,20 +1690,20 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
 };
 
 enum ts_field_identifiers {
-  field_a = 1,
-  field_addr = 2,
-  field_alias = 3,
-  field_annotations = 4,
-  field_b = 5,
-  field_body = 6,
-  field_c = 7,
-  field_count = 8,
-  field_d = 9,
+  field_addr = 1,
+  field_alias = 2,
+  field_annotations = 3,
+  field_body = 4,
+  field_count = 5,
+  field_elem0 = 6,
+  field_elem1 = 7,
+  field_elem2 = 8,
+  field_elem3 = 9,
   field_else_body = 10,
   field_end = 11,
   field_err = 12,
-  field_expr = 13,
-  field_id = 14,
+  field_event = 13,
+  field_expr = 14,
   field_imm = 15,
   field_index = 16,
   field_kind = 17,
@@ -1722,20 +1722,20 @@ enum ts_field_identifiers {
 
 static const char * const ts_field_names[] = {
   [0] = NULL,
-  [field_a] = "a",
   [field_addr] = "addr",
   [field_alias] = "alias",
   [field_annotations] = "annotations",
-  [field_b] = "b",
   [field_body] = "body",
-  [field_c] = "c",
   [field_count] = "count",
-  [field_d] = "d",
+  [field_elem0] = "elem0",
+  [field_elem1] = "elem1",
+  [field_elem2] = "elem2",
+  [field_elem3] = "elem3",
   [field_else_body] = "else_body",
   [field_end] = "end",
   [field_err] = "err",
+  [field_event] = "event",
   [field_expr] = "expr",
-  [field_id] = "id",
   [field_imm] = "imm",
   [field_index] = "index",
   [field_kind] = "kind",
@@ -1817,7 +1817,7 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
   [14] =
     {field_start, 2},
   [15] =
-    {field_id, 2},
+    {field_event, 2},
   [16] =
     {field_then_body, 1},
   [17] =
@@ -1874,10 +1874,10 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_num_locals, 4},
     {field_visibility, 1},
   [56] =
-    {field_a, 1},
-    {field_b, 3},
-    {field_c, 5},
-    {field_d, 7},
+    {field_elem0, 1},
+    {field_elem1, 3},
+    {field_elem2, 5},
+    {field_elem3, 7},
 };
 
 static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH] = {
