@@ -12,42 +12,34 @@ end
 ---
 
 (source_file
-  (form
-    (constant
-        name: (const_ident)
-        value: (const_expr
-          (const_term (string (string_content))))))
+  (constant
+    name: (const_ident)
+    value: (string
+      (string_content)))
   (newline)
-  (form
-    (constant
-        name: (const_ident)
-        value: (const_expr
-          (const_term (number (decimal))))))
+  (constant
+    name: (const_ident)
+    value: (decimal))
   (newline)
-  (form
-    (constant
-        name: (const_ident)
-        value: (const_expr
-          (const_term (number (hex))))))
+  (constant
+    name: (const_ident)
+    value: (hex))
   (newline)
-  (form
-    (constant
-        name: (const_ident)
-        value: (const_expr
-          (const_binop
-            lhs: (const_expr
-              (const_term (const_ident)))
-            (whitespace)
-            (whitespace)
-            rhs: (const_expr
-              (const_term (const_ident)))))))
+  (constant
+    name: (const_ident)
+    value: (const_binop
+      lhs: (const_ident)
+      (whitespace)
+      (whitespace)
+      rhs: (const_ident)))
   (newline)
   (newline)
-  (form
-    (procedure
-        name: (identifier)
-        (newline)
-        (whitespace)
-        body: (block
-          (push (const_ident) (const_ident)))
-        (newline))))
+  (procedure
+    name: (identifier)
+    (newline)
+    (whitespace)
+    body: (block
+      (push
+        (const_ident)
+        (const_ident)))
+    (newline)))

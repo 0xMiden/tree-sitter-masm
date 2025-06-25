@@ -9,22 +9,18 @@ end
 ---
 
 (source_file
-  (form
-    (import
-        path: (path
-        (relative_path
-            (identifier)
-            (identifier)))))
+  (import
+    path: (relative_path
+      (identifier)
+      (identifier)))
   (newline)
   (newline)
-  (form
-    (entrypoint
-        (newline)
-        (whitespace)
-        body: (block
-        (invoke
-          path: (path
-            (relative_path
-              (identifier)
-              (identifier)))))
-        (newline))))
+  (entrypoint
+    (newline)
+    (whitespace)
+    body: (block
+      (invoke
+        path: (relative_path
+          (identifier)
+          (identifier))))
+    (newline)))

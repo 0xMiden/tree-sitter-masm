@@ -8,7 +8,6 @@ end
 ---
 
 (source_file
-  (form
     (procedure
         annotations: (annotation  name: (identifier))
         (newline)
@@ -17,5 +16,5 @@ end
         (newline)
         (whitespace)
         body: (block
-        (invoke path: (path (relative_path (identifier)))))
-        (newline))))
+        (invoke path: (relative_path (identifier))))
+        (newline)))

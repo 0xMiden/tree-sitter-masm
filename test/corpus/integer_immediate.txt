@@ -7,11 +7,10 @@ end
 ---
 
 (source_file
-  (form
     (procedure
         name: (identifier)
         (newline)
         (whitespace)
         body: (block
-        (push (number (decimal))))
-        (newline))))
+        (push (decimal)))
+        (newline)))

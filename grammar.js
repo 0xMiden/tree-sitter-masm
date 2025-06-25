@@ -165,6 +165,18 @@ module.exports = grammar({
     ],
   },
 
+  supertypes: ($) => [
+    $.op,
+    $.form,
+    $.annotation_value,
+    $.meta_expr,
+    $.const_expr,
+    $.path,
+    $.const_term,
+    $.number,
+    $.integer,
+  ],
+
   word: ($) => $.identifier,
 
   rules: {
@@ -214,25 +226,25 @@ module.exports = grammar({
         "end",
       ),
 
-    block: ($) =>
-      repeat1(
-        choice(
-          $.assert,
-          $.debug,
-          $.push,
-          $.op_with_immediate,
-          $.op_with_optional_immediate,
-          $.op_with_stack_index,
-          $.op_with_local_index,
-          $.op,
-          $.if,
-          $.while,
-          $.repeat,
-          $.invoke,
-        ),
-      ),
+    block: ($) => repeat1($.op),
 
     op: ($) =>
+      choice(
+        $.assert,
+        $.debug,
+        $.push,
+        $.op_with_immediate,
+        $.op_with_optional_immediate,
+        $.op_with_stack_index,
+        $.op_with_local_index,
+        $.opcode,
+        $.if,
+        $.while,
+        $.repeat,
+        $.invoke,
+      ),
+
+    opcode: ($) =>
       choice(
         "nop",
         "adv.insert_hdword",
@@ -446,9 +458,9 @@ module.exports = grammar({
         prec.left(1, seq(field("lhs", $.const_expr), "-", field("rhs", $.const_expr))),
       ),
 
-    const_term: ($) => choice($._parenthesized_const_expr, $.number, $.string, $.const_ident),
+    const_term: ($) => choice($.const_group, $.number, $.string, $.const_ident),
 
-    _parenthesized_const_expr: ($) => seq("(", $.const_expr, ")"),
+    const_group: ($) => seq("(", field("expr", $.const_expr), ")"),
 
     path: ($) => choice($.absolute_path, $.relative_path),
 

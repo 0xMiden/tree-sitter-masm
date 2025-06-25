@@ -7,19 +7,18 @@ end
 ---
 
 (source_file
-  (form
     (procedure
         name: (identifier)
         (newline)
         (whitespace)
         body: (block
-        (push (number (word
-            (integer (decimal))
+        (push (word
+            (decimal)
             (whitespace)
-            (integer (hex))
+            (hex)
             (whitespace)
-            (integer (decimal))
+            (decimal)
             (whitespace)
-            (integer (decimal))
-        ))))
-        (newline))))
+            (decimal)
+        )))
+        (newline)))

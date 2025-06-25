@@ -340,60 +340,64 @@
     "block": {
       "type": "REPEAT1",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "assert"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "debug"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "push"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "op_with_immediate"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "op_with_optional_immediate"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "op_with_stack_index"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "op_with_local_index"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "op"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "if"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "while"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "repeat"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "invoke"
-          }
-        ]
+        "type": "SYMBOL",
+        "name": "op"
       }
     },
     "op": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "assert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "debug"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "push"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_with_immediate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_with_optional_immediate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_with_stack_index"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_with_local_index"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "opcode"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "while"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "repeat"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "invoke"
+        }
+      ]
+    },
+    "opcode": {
       "type": "CHOICE",
       "members": [
         {
@@ -1572,7 +1576,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_parenthesized_const_expr"
+          "name": "const_group"
         },
         {
           "type": "SYMBOL",
@@ -1588,7 +1592,7 @@
         }
       ]
     },
-    "_parenthesized_const_expr": {
+    "const_group": {
       "type": "SEQ",
       "members": [
         {
@@ -1596,8 +1600,12 @@
           "value": "("
         },
         {
-          "type": "SYMBOL",
-          "name": "const_expr"
+          "type": "FIELD",
+          "name": "expr",
+          "content": {
+            "type": "SYMBOL",
+            "name": "const_expr"
+          }
         },
         {
           "type": "STRING",
@@ -1924,7 +1932,17 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": [],
+  "supertypes": [
+    "op",
+    "form",
+    "annotation_value",
+    "meta_expr",
+    "const_expr",
+    "path",
+    "const_term",
+    "number",
+    "integer"
+  ],
   "reserved": {
     "global": [
       {

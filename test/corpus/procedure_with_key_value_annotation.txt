@@ -8,16 +8,14 @@ end
 ---
 
 (source_file
-  (form
     (procedure
         annotations: (annotation
         name: (identifier)
-        value: (annotation_value
-            (meta_key_value
+        value: (meta_key_value
             name: (identifier)
             (whitespace)
             (whitespace)
-            value: (meta_expr (string (string_content)))))
+            value: (string (string_content)))
         )
         (newline)
         name: (identifier)
@@ -25,5 +23,5 @@ end
         (newline)
         (whitespace)
         body: (block
-        (invoke path: (path (relative_path (identifier)))))
-        (newline))))
+        (invoke path: (relative_path (identifier))))
+        (newline)))

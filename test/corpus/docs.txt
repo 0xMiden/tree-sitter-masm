@@ -19,17 +19,16 @@ end
     (doc_comment_line)
     (doc_comment_line)
     (doc_comment_line))
-  (form
-    (procedure
-        docs: (doc_comment
-            (doc_comment_line)
-            (doc_comment_line)
-            (doc_comment_line))
-        name: (identifier)
-        (newline)
-        (whitespace)
-        (comment)
-        (whitespace)
-        body: (block
-        (push (number (decimal))))
-        (newline))))
+  (procedure
+      docs: (doc_comment
+          (doc_comment_line)
+          (doc_comment_line)
+          (doc_comment_line))
+      name: (identifier)
+      (newline)
+      (whitespace)
+      (comment)
+      (whitespace)
+      body: (block
+        (push (decimal)))
+      (newline)))

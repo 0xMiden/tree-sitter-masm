@@ -1,5 +1,195 @@
 [
   {
+    "type": "annotation_value",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "meta_expr",
+        "named": true
+      },
+      {
+        "type": "meta_key_value",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "const_expr",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "const_binop",
+        "named": true
+      },
+      {
+        "type": "const_term",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "const_term",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "const_group",
+        "named": true
+      },
+      {
+        "type": "const_ident",
+        "named": true
+      },
+      {
+        "type": "number",
+        "named": true
+      },
+      {
+        "type": "string",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "form",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "constant",
+        "named": true
+      },
+      {
+        "type": "entrypoint",
+        "named": true
+      },
+      {
+        "type": "import",
+        "named": true
+      },
+      {
+        "type": "procedure",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "integer",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "decimal",
+        "named": true
+      },
+      {
+        "type": "hex",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "meta_expr",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "number",
+        "named": true
+      },
+      {
+        "type": "string",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "number",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "decimal",
+        "named": true
+      },
+      {
+        "type": "hex",
+        "named": true
+      },
+      {
+        "type": "word",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "op",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "assert",
+        "named": true
+      },
+      {
+        "type": "debug",
+        "named": true
+      },
+      {
+        "type": "if",
+        "named": true
+      },
+      {
+        "type": "invoke",
+        "named": true
+      },
+      {
+        "type": "op_with_immediate",
+        "named": true
+      },
+      {
+        "type": "op_with_local_index",
+        "named": true
+      },
+      {
+        "type": "op_with_optional_immediate",
+        "named": true
+      },
+      {
+        "type": "op_with_stack_index",
+        "named": true
+      },
+      {
+        "type": "opcode",
+        "named": true
+      },
+      {
+        "type": "push",
+        "named": true
+      },
+      {
+        "type": "repeat",
+        "named": true
+      },
+      {
+        "type": "while",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "path",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "absolute_path",
+        "named": true
+      },
+      {
+        "type": "relative_path",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "absolute_path",
     "named": true,
     "fields": {},
@@ -53,25 +243,6 @@
     }
   },
   {
-    "type": "annotation_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "meta_expr",
-          "named": true
-        },
-        {
-          "type": "meta_key_value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "assert",
     "named": true,
     "fields": {
@@ -112,51 +283,7 @@
       "required": true,
       "types": [
         {
-          "type": "assert",
-          "named": true
-        },
-        {
-          "type": "debug",
-          "named": true
-        },
-        {
-          "type": "if",
-          "named": true
-        },
-        {
-          "type": "invoke",
-          "named": true
-        },
-        {
           "type": "op",
-          "named": true
-        },
-        {
-          "type": "op_with_immediate",
-          "named": true
-        },
-        {
-          "type": "op_with_local_index",
-          "named": true
-        },
-        {
-          "type": "op_with_optional_immediate",
-          "named": true
-        },
-        {
-          "type": "op_with_stack_index",
-          "named": true
-        },
-        {
-          "type": "push",
-          "named": true
-        },
-        {
-          "type": "repeat",
-          "named": true
-        },
-        {
-          "type": "while",
           "named": true
         }
       ]
@@ -189,49 +316,19 @@
     }
   },
   {
-    "type": "const_expr",
+    "type": "const_group",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "const_binop",
-          "named": true
-        },
-        {
-          "type": "const_term",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "const_term",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "const_expr",
-          "named": true
-        },
-        {
-          "type": "const_ident",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
+    "fields": {
+      "expr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "const_expr",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -331,33 +428,6 @@
     }
   },
   {
-    "type": "form",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "constant",
-          "named": true
-        },
-        {
-          "type": "entrypoint",
-          "named": true
-        },
-        {
-          "type": "import",
-          "named": true
-        },
-        {
-          "type": "procedure",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "if",
     "named": true,
     "fields": {
@@ -430,25 +500,6 @@
     }
   },
   {
-    "type": "integer",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "decimal",
-          "named": true
-        },
-        {
-          "type": "hex",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "invoke",
     "named": true,
     "fields": {
@@ -484,29 +535,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "meta_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -556,34 +584,6 @@
   },
   {
     "type": "newline",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "number",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "decimal",
-          "named": true
-        },
-        {
-          "type": "hex",
-          "named": true
-        },
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "op",
     "named": true,
     "fields": {}
   },
@@ -679,23 +679,9 @@
     }
   },
   {
-    "type": "path",
+    "type": "opcode",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "absolute_path",
-          "named": true
-        },
-        {
-          "type": "relative_path",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "procedure",
